@@ -30,22 +30,27 @@ E                       [Ee][+-]?{D}+
 "while"                 { printf("WHILE"); }
 
 {L}({L}|{D})*           { printf("IDENTIFIER"); }
+{D}+                    { printf("CONSTANT"); }
 
-
+"("                     { printf("("); }
+")"                     { printf(")"); }
+"{"                     { printf("{"); }
+"}"                     { printf("}"); }
 "+"                     { printf("+"); }
 "-"                     { printf("-"); }
 "*"                     { printf("*"); }
 "/"                     { printf("/"); }
+"="                     { printf("="); }
 "->"                    { printf("->"); }
-"&&"                    { printf("&&"); }
-"||"                    { printf("||"); }
+"&&"                    { printf("AND_OP"); }
+"||"                    { printf("OR_OP"); }
 "<="                    { printf("<="); }
 ">="                    { printf(">="); }
 "=="                    { printf("=="); }
 "!="                    { printf("!="); }
 
 [ \t\v\n\f\r]           { printf("%s", yytext); }
-.                       {  }
+.                       { }
 %%
 
 int main(){
