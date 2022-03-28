@@ -1,3 +1,7 @@
+%{
+#include "table-symboles.h"
+%}
+
 %token IDENTIFIER CONSTANT SIZEOF
 %token PTR_OP LE_OP GE_OP EQ_OP NE_OP
 %token AND_OP OR_OP
@@ -194,3 +198,8 @@ function_definition
 
 %%
 
+// rajouter la redefinition de yyerror et int main
+int main(){
+        initialize();
+        yyparse();
+}

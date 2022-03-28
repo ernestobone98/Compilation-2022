@@ -8,7 +8,7 @@ E                       [Ee][+-]?{D}+
 %{
 #include <stdio.h>
 //#include "y.tab.h"
-
+#include "table-symboles.h"
 
 /* Ne g�re pas les commentaires. A rajouter */
 /* Supprimer les lignes dont vous n'avez pas besoin. */

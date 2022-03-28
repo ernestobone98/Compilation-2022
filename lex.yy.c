@@ -933,7 +933,7 @@ YY_RULE_SETUP
 case 31:
 YY_RULE_SETUP
 #line 53 "ANSI-C.l"
-{  }
+{ }
 	YY_BREAK
 case 32:
 YY_RULE_SETUP
