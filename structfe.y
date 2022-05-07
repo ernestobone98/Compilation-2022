@@ -2,6 +2,10 @@
 #include "table-symboles.h"
 %}
 
+%union{
+        int num;
+}
+
 %token IDENTIFIER CONSTANT SIZEOF
 %token PTR_OP LE_OP GE_OP EQ_OP NE_OP
 %token AND_OP OR_OP
@@ -82,7 +86,7 @@ logical_or_expression
 
 expression
         : logical_or_expression
-        | unary_expression '=' expression
+        | unary_expression '=' expression { }
         ;
 
 declaration
@@ -96,9 +100,9 @@ declaration_specifiers
         ;
 
 type_specifier
-        : VOID
-        | INT
-        | struct_specifier
+        : VOID                  {$$ = "void"}
+        | INT                   {$$ = "int"}
+        | struct_specifier      {$$ = "struct"}
         ;
 
 struct_specifier
@@ -193,7 +197,7 @@ external_declaration
         ;
 
 function_definition
-        : declaration_specifiers declarator compound_statement
+        : declaration_specifiers declarator compound_statement { }
         ;
 
 %%

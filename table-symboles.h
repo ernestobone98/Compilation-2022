@@ -4,30 +4,39 @@
 #include <stdio.h>
 #include <string.h>
 
-typedef struct symbole_t {
+#define SIZE 201
+
+typedef enum _type_t {
+    _INT,
+    _VOID,
+    _STRUCT,
+    _TYPE_ERROR
+} type_t;
+
+typedef struct _symbole_t {
     char* name;
-    //int val;
-    char* type;
+    type_t type;
 } symbole_t;
 
-typedef struct Node {
+typedef struct _node {
     symbole_t sym;
     struct node* next;
-} Node;
+} node;
 
-typedef struct linked_list{
-    Node* head;
+typedef struct _linked_list{
+    node* head;
     int len;
 } linked_list;
 
-struct linked_list list;
-
 //initialiser un tableau de listes chaineess
 
-Node* create_node(symbole_t *sym);
-void delete_node(Node* node);
-void add(linked_list* list, symbole_t* sym);
+//node* create_node(symbole_t *sym);
+node* create_node(const char* nom, void* type);
+void delete_node(node* node);
+void add(linked_list* list, symbole_t* sym, type_t type);
+//void add_ts(linked_list* list_parent, linked_list* list_child);
 symbole_t* search(linked_list* list, char* name);
-void modify(linked_list* list, char* sym, char* type);
+void modify(linked_list* list, char* sym, type_t type);
+void initialiaze();
 
 #endif
