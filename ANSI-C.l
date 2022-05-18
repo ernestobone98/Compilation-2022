@@ -7,53 +7,50 @@ E                       [Ee][+-]?{D}+
 
 %{
 #include <stdio.h>
-//#include "y.tab.h"
+#include "y.tab.h"
 #include "table-symboles.h"
-
-/* Ne g�re pas les commentaires. A rajouter */
-/* Supprimer les lignes dont vous n'avez pas besoin. */
 
 %}
 
 %%
 
-"else"                  { printf("ELSE") ; }
-"extern"                { printf("EXTERN"); }
-"for"                   { printf("FOR"); }
-"if"                    { printf("IF"); }
-"int"                   { printf("INT"); }
-"return"                { printf("RETURN"); }
-"sizeof"                { printf("SIZEOF"); }
-"struct"                { printf("STRUCT"); }
-"typedef"               { printf("TYPEDEF"); }
-"void"                  { printf("VOID"); }
-"while"                 { printf("WHILE"); }
+"else"                  { return "ELSE"; }
+"extern"                { return "EXTERN"; }
+"for"                   { return "FOR"; }
+"if"                    { return "IF"; }
+"int"                   { return "INT"; }
+"return"                { return "RETURN"; }
+"sizeof"                { return "SIZEOF"; }
+"struct"                { return "STRUCT"; }
+"typedef"               { return "TYPEDEF"; }
+"void"                  { return "VOID"; }
+"while"                 { return "WHILE"; }
 
-{L}({L}|{D})*           { printf("IDENTIFIER"); }
-{D}+                    { printf("CONSTANT"); }
+{L}({L}|{D})*           { return "IDENTIFIER"; }
+{D}+                    { return "CONSTANT"; }
 
-"("                     { printf("("); }
-")"                     { printf(")"); }
-"{"                     { printf("{"); }
-"}"                     { printf("}"); }
-"+"                     { printf("+"); }
-"-"                     { printf("-"); }
-"*"                     { printf("*"); }
-"/"                     { printf("/"); }
-"="                     { printf("="); }
-"->"                    { printf("->"); }
-"&&"                    { printf("AND_OP"); }
-"||"                    { printf("OR_OP"); }
-"<="                    { printf("<="); }
-">="                    { printf(">="); }
-"=="                    { printf("=="); }
-"!="                    { printf("!="); }
+"("                     { return "("; }
+")"                     { return ")"; }
+"{"                     { return "{"; }
+"}"                     { return "}"; }
+"+"                     { return "+"; }
+"-"                     { return "-"; }
+"*"                     { return "*"; }
+"/"                     { return "/"; }
+"="                     { return "="; }
+"->"                    { return "->"; }
+"&&"                    { return "AND_OP"; }
+"||"                    { return "OR_OP"; }
+"<="                    { return "<="; }
+">="                    { return ">="; }
+"=="                    { return "=="; }
+"!="                    { return "!="; }
 
-[ \t\v\n\f\r]           { printf("%s", yytext); }
+[ \t\v\n\f\r]           { return "%s", yytext; }
 .                       { }
 %%
 
 int main(){
-    yylex();
+    while(yyparse());
     return 0;
 }

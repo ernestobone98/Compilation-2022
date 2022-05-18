@@ -1,12 +1,14 @@
 %{
-#include "table-symboles.h"
+        #include "table-symboles.h" 
 %}
 
 %union{
-        int num;
+        struct _symbole_t* syms;
+        struct  _node* nnode;
+        struct _linked_list* ll;
 }
 
-%token IDENTIFIER CONSTANT SIZEOF
+%token <nnode> IDENTIFIER CONSTANT SIZEOF
 %token PTR_OP LE_OP GE_OP EQ_OP NE_OP
 %token AND_OP OR_OP
 %token EXTERN
@@ -14,12 +16,18 @@
 %token STRUCT 
 %token IF ELSE WHILE FOR RETURN
 
+%type <nnode> type_specifier
+//%type <syms> direct_declarator
+
+%nonassoc LOWER_THAN_ELSE
+%nonassoc ELSE
+
 %start program
 %%
 
 primary_expression
-        : IDENTIFIER
-        | CONSTANT
+        : IDENTIFIER    { }
+        | CONSTANT      { }
         | '(' expression ')'
         ;
 
@@ -56,7 +64,7 @@ multiplicative_expression
 
 additive_expression
         : multiplicative_expression
-        | additive_expression '+' multiplicative_expression
+        | additive_expression '+' multiplicative_expression     {}
         | additive_expression '-' multiplicative_expression
         ;
 
@@ -90,19 +98,19 @@ expression
         ;
 
 declaration
-        : declaration_specifiers declarator ';'
+        : declaration_specifiers declarator ';' {}
         | struct_specifier ';'
         ;
 
 declaration_specifiers
         : EXTERN type_specifier
-        | type_specifier
+        | type_specifier        {}
         ;
 
 type_specifier
-        : VOID                  {$$ = "void"}
-        | INT                   {$$ = "int"}
-        | struct_specifier      {$$ = "struct"}
+        : VOID                  {$$ = create_node("_VOID",_VOID);}
+        | INT                   {$$ = create_node("_INT", _INT) ;}
+        | struct_specifier      {}
         ;
 
 struct_specifier
@@ -122,11 +130,11 @@ struct_declaration
 
 declarator
         : '*' direct_declarator
-        | direct_declarator
+        | direct_declarator     
         ;
 
 direct_declarator
-        : IDENTIFIER
+        : IDENTIFIER            
         | '(' declarator ')'
         | direct_declarator '(' parameter_list ')'
         | direct_declarator '(' ')'
@@ -172,7 +180,7 @@ expression_statement
         ;
 
 selection_statement
-        : IF '(' expression ')' statement
+        : IF '(' expression ')' statement %prec LOWER_THAN_ELSE
         | IF '(' expression ')' statement ELSE statement
         ;
 
