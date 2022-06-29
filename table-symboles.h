@@ -34,10 +34,8 @@ int scope;
 // faire allocation d'un node pour les elems de la liste
 
 node* create_node(char* name, type_t type);
-//node* create_node(const char* nom, void* type);
 void delete_node(node* node);
 void add(linked_list* list, symbole_t* sym, type_t type);
-//void add_ts(linked_list* list_parent, linked_list* list_child);
 symbole_t* search(linked_list list, char* name);
 void modify(linked_list list, char* sym, type_t type);
 void initialiaze();

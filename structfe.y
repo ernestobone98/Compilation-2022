@@ -16,9 +16,8 @@
 %token STRUCT 
 %token IF ELSE WHILE FOR RETURN
 
-%type <nnode> type_specifier
-//%type <syms> direct_declarator
-
+%type <nnode> type_specifier direct_declarator program external_declaration declaration
+%type <syms> declaration_specifiers declarator
 %nonassoc LOWER_THAN_ELSE
 %nonassoc ELSE
 
@@ -26,8 +25,8 @@
 %%
 
 primary_expression
-        : IDENTIFIER    { }
-        | CONSTANT      { }
+        : IDENTIFIER    
+        | CONSTANT      
         | '(' expression ')'
         ;
 
@@ -64,8 +63,8 @@ multiplicative_expression
 
 additive_expression
         : multiplicative_expression
-        | additive_expression '+' multiplicative_expression     {}
-        | additive_expression '-' multiplicative_expression
+        | additive_expression '+' multiplicative_expression     
+        | additive_expression '-' multiplicative_expression     
         ;
 
 relational_expression
@@ -94,23 +93,23 @@ logical_or_expression
 
 expression
         : logical_or_expression
-        | unary_expression '=' expression { }
+        | unary_expression '=' expression
         ;
 
 declaration
-        : declaration_specifiers declarator ';' {}
+        : declaration_specifiers declarator ';' { create_node($2->name,$1->type);}
         | struct_specifier ';'
         ;
 
 declaration_specifiers
         : EXTERN type_specifier
-        | type_specifier        {}
+        | type_specifier       
         ;
 
 type_specifier
-        : VOID                  {$$ = create_node("_VOID",_VOID);}
-        | INT                   {$$ = create_node("_INT", _INT) ;}
-        | struct_specifier      {}
+        : VOID                  { $$ = "_VOID"; }
+        | INT                   { $$ = "_INT"; }
+        | struct_specifier      { $$ = "_STRUCT";}
         ;
 
 struct_specifier
@@ -130,11 +129,11 @@ struct_declaration
 
 declarator
         : '*' direct_declarator
-        | direct_declarator     
+        | direct_declarator
         ;
 
 direct_declarator
-        : IDENTIFIER            
+        : IDENTIFIER            { $$ = $1; }
         | '(' declarator ')'
         | direct_declarator '(' parameter_list ')'
         | direct_declarator '(' ')'
@@ -205,13 +204,13 @@ external_declaration
         ;
 
 function_definition
-        : declaration_specifiers declarator compound_statement { }
+        : declaration_specifiers declarator compound_statement
         ;
 
 %%
 
-// rajouter la redefinition de yyerror et int main
 int main(){
-        initialize();
         yyparse();
+        yyerror();
+        return 0;
 }

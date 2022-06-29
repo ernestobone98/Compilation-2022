@@ -1,0 +1,10 @@
+---- Projet de Compilation 2022 ---
+
+Executer le fichier ANSI-C.l
+	$lex ANSI-C.l
+
+Executer la commande 
+	$yacc -d structfe.y
+	
+Compiler avec 
+	$gcc lex.yy.c y.tab.c struct-controller.c -o try -fcommon

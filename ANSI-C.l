@@ -14,39 +14,39 @@ E                       [Ee][+-]?{D}+
 
 %%
 
-"else"                  { return "ELSE"; }
-"extern"                { return "EXTERN"; }
-"for"                   { return "FOR"; }
-"if"                    { return "IF"; }
-"int"                   { return "INT"; }
-"return"                { return "RETURN"; }
-"sizeof"                { return "SIZEOF"; }
-"struct"                { return "STRUCT"; }
-"typedef"               { return "TYPEDEF"; }
-"void"                  { return "VOID"; }
-"while"                 { return "WHILE"; }
+"else"                  { printf("ELSE"); return "ELSE"; }
+"extern"                { printf("EXTERN"); return "EXTERN"; }
+"for"                   { printf("FOR"); return "FOR"; }
+"if"                    { printf("IF"); return "IF"; }
+"int"                   { printf("INT"); return "INT"; }
+"return"                { printf("RETURN"); return "RETURN"; }
+"sizeof"                { printf("SIZEOF"); return "SIZEOF"; }
+"struct"                { printf("STRUCT"); return "STRUCT"; }
+"typedef"               { printf("TYPEDEF"); return "TYPEDEF"; }
+"void"                  { printf("VOID"); return "VOID"; }
+"while"                 { printf("WHILE"); return "WHILE"; }
 
-{L}({L}|{D})*           { return "IDENTIFIER"; }
-{D}+                    { return "CONSTANT"; }
+{L}({L}|{D})*           { printf("IDENTIFIER"); return "IDENTIFIER"; }
+{D}+                    { printf("CONSTANT"); return "CONSTANT"; }
 
-"("                     { return "("; }
-")"                     { return ")"; }
-"{"                     { return "{"; }
-"}"                     { return "}"; }
-"+"                     { return "+"; }
-"-"                     { return "-"; }
-"*"                     { return "*"; }
-"/"                     { return "/"; }
-"="                     { return "="; }
-"->"                    { return "->"; }
-"&&"                    { return "AND_OP"; }
-"||"                    { return "OR_OP"; }
-"<="                    { return "<="; }
-">="                    { return ">="; }
-"=="                    { return "=="; }
-"!="                    { return "!="; }
+"("                     { printf("("); return "("; }
+")"                     { printf(")"); return ")"; }
+"{"                     { printf("{"); return "{"; }
+"}"                     { printf("}"); return "}"; }
+"+"                     { printf("+"); return "+"; }
+"-"                     { printf("-"); return "-"; }
+"*"                     { printf("*"); return "*"; }
+"/"                     { printf("/"); return "/"; }
+"="                     { printf("="); return "="; }
+"->"                    { printf("->"); return "->"; }
+"&&"                    { printf("AND_OP"); return "AND_OP"; }
+"||"                    { printf("OR_OP"); return "OR_OP"; }
+"<="                    { printf("<="); return "<="; }
+">="                    { printf(">="); return ">="; }
+"=="                    { printf("=="); return "=="; }
+"!="                    { printf("!="); return "!="; }
 
-[ \t\v\n\f\r]           { return "%s", yytext; }
+[ \t\v\n\f\r]           { printf(""); return "%s", yytext; }
 .                       { }
 %%
 

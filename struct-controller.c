@@ -47,30 +47,3 @@ void modify(linked_list list, char* sym, type_t type){
     }
 }
 
-void test(){
-    //initialiaze();
-    //add(list, , _INT);
-    scope = 0;
-    ll[0].head = malloc(sizeof(node));
-    ll[0].head->sym.name = "_INT";
-    printf(ll[0].head->sym.name);
-    ll[0].head->sym.type = _INT;
-    symbole_t* t = search(ll[0], ll[0].head->sym.name);
-    if(t->type == _INT){
-        printf("type int\n");
-        printf(ll[0].head->sym.name);
-    }
-    else{printf("type not int\n");}
-
-}
-
-void initialiaze(){
-    //creer l'espace memoire pour les tables de symboles
-    //node* this_node;
- 
-}
-
-int main(){
-    test();
-    return 0;
-}
